@@ -1,37 +1,37 @@
-# TKAORA v2.1 — Vercel Serverless
+# TKAORA v2.2
 
-Website latihan TKA dengan katalog 14 materi, pratinjau PDF di dalam website, dan simulasi 15 soal. Tidak ada sistem poin, level, kredit, atau leaderboard.
+Website latihan TKA: katalog 14 materi, pembaca PDF di dalam website, latihan 15 soal, dan catatan belajar pribadi. Tanpa poin, level, atau peringkat.
 
 ## Deploy ke Vercel
 
-1. Upload/push seluruh isi folder ini ke repository GitHub.
-2. Di Vercel pilih **Add New → Project**, impor repository tersebut.
-3. Framework Preset: **Other**. Build Command dan Output Directory dapat dikosongkan; `vercel.json` mengatur routing.
-4. Klik **Deploy**. API serverless tersedia di `/api/health` dan `/api/materials`.
+1. Push seluruh isi folder ini ke root repository GitHub (`app.js` harus ada di root).
+2. Import repository di Vercel. Framework akan terdeteksi sebagai **Express**; biarkan Build Command dan Output Directory kosong.
+3. Deploy.
 
-## PDF materi (tanpa redirect saat membaca)
+`app.js` adalah satu-satunya entrypoint: ia mengimpor Express, menyajikan folder `public/`, dan menyediakan `/api/health` dan `/api/materials`.
 
-Masukkan file PDF yang memang boleh digunakan ke `public/pdfs/` dengan nama `tka-01.pdf` sampai `tka-14.pdf`. Pada entri terkait di `materials.json`, ubah `hasPdf` menjadi `true` (tambahkan properti tersebut), lalu commit dan deploy ulang. File yang tersedia akan dibuka di viewer website melalui URL `/pdfs/tka-01.pdf`, bukan dialihkan ke Google Drive. Arsip source ini tidak menyertakan PDF sumber; file Google Drive tidak otomatis diunduh atau disalin.
-
-## Progres belajar
-
-Karena Vercel Functions tidak menyediakan filesystem permanen untuk penyimpanan aplikasi, catatan materi tersimpan di `localStorage` browser/perangkat pengguna. Catatan tidak tersinkron otomatis lintas perangkat atau browser. Jika perlu sinkronisasi akun, hubungkan database seperti Vercel Postgres, Neon, atau Supabase.
-
-## Uji lokal di Termux
+## Jalankan lokal
 
 ```bash
-pkg install nodejs-lts git -y
 npm install
-npx vercel dev
+npm start
 ```
 
-Buka URL lokal yang ditampilkan CLI. Untuk menjalankan server Express lokal lama, gunakan `npm start` (API progres server lokal berbeda dari mode Vercel).
+Buka `http://localhost:8080`.
 
-## Struktur penting
+## Menambah PDF materi
 
-- `public/` — frontend, CSS, JS, soal latihan, dan aset PDF
-- `api/materials.js` — Vercel Function untuk katalog materi
-- `api/health.js` — endpoint status
-- `materials.json` — katalog 14 materi dan tautan sumber
-- `public/questions.json` — 15 soal latihan orisinal beserta pembahasan
-- `vercel.json` — konfigurasi build dan routing Vercel
+1. Simpan file ke `public/pdfs/` dengan nama `tka-01.pdf` sampai `tka-14.pdf`.
+2. Di `materials.json`, ubah `"hasPdf": false` menjadi `true` pada materi terkait.
+3. Commit dan deploy ulang.
+
+## Catatan belajar
+
+Disimpan di `localStorage` perangkat pengguna, karena Vercel tidak punya penyimpanan file permanen. Jawaban latihan yang sedang berjalan disimpan di `sessionStorage` tab. Untuk sinkronisasi antarperangkat, hubungkan database (Neon, Supabase, atau Vercel Postgres).
+
+## Struktur
+
+- `app.js` — server Express (entrypoint Vercel)
+- `materials.json` — katalog materi dan tautan sumber
+- `public/index.html`, `public/css/style.css`, `public/js/main.js` — frontend
+- `public/questions.json` — 15 soal latihan beserta pembahasan

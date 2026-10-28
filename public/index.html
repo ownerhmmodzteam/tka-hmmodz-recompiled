@@ -1,6 +1,122 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1020"><title>TKAORA — Ruang Belajar</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/style.css"></head><body><div class="layout"><aside class="sidebar"><a class="brand" href="#"><span class="logo">T</span><span>TKAORA<small>RUANG BELAJAR</small></span></a><p class="nav-caption">BELAJAR</p><button class="nav active" data-page="home">⌂ <span>Beranda</span></button><button class="nav" data-page="library">▤ <span>Materi PDF</span></button><button class="nav" data-page="practice">✎ <span>Simulasi 15 Soal</span></button><button class="nav" data-page="progress">◷ <span>Catatan Belajar</span></button><div class="sidebar-quote"><span>✦</span><p>Setiap orang berhak belajar. Tidak perlu menjadi lebih tinggi dari siapa pun.</p></div><div class="side-foot">Ruang belajar yang setara.</div></aside><main><header class="topbar"><button class="mobile-brand" data-page="home">TKAORA</button><span id="breadcrumb">Beranda</span><span class="top-right">Belajar sesuai ritmemu <i></i></span></header>
-<section class="page" id="home"><div class="hero"><div class="eyebrow">RUANG BELAJAR TKA 2025</div><h1>Belajar bersama.<br><span>Tumbuh dengan caramu.</span></h1><p>Temukan bahan belajar, pahami konsep, dan berlatih tanpa peringkat atau tekanan untuk bersaing.</p><div class="hero-buttons"><button class="primary" data-goto="library">Lihat materi PDF <span>↗</span></button><button class="secondary" data-goto="practice">Mulai latihan 15 soal</button></div><div class="hero-art"><div class="circle c1"></div><div class="circle c2"></div><div class="book"><span>✦</span><b>LEARN<br>AT YOUR<br>OWN PACE</b><small>ONE STEP AT A TIME</small></div></div></div><div class="section-title"><div><small>RUANG YANG AMAN UNTUK BELAJAR</small><h2>Mulai dari yang kamu butuhkan</h2></div></div><div class="feature-grid"><button class="feature" data-goto="library"><span class="feature-icon purple">▤</span><b>Bahan PDF</b><p>Buka dan baca dokumen di dalam website saat file PDF tersedia.</p><span class="feature-link">Jelajahi materi →</span></button><button class="feature" data-goto="practice"><span class="feature-icon blue">✎</span><b>Simulasi latihan</b><p>15 soal pilihan ganda, dengan pembahasan setelah kamu selesai.</p><span class="feature-link">Mulai latihan →</span></button><button class="feature" data-goto="progress"><span class="feature-icon green">♡</span><b>Catatan belajar</b><p>Simpan materi yang sudah dipelajari untuk membantu mengatur langkah berikutnya.</p><span class="feature-link">Lihat catatan →</span></button></div><div class="gentle-note"><span>✧</span><p><b>Ingat:</b> hasil latihan bukan ukuran nilai dirimu. Kesalahan adalah petunjuk tentang apa yang bisa dipelajari berikutnya.</p></div></section>
-<section class="page hidden" id="library"><div class="page-head"><small>MATERI PEMBELAJARAN</small><h1>Bank soal <span>TKA 2025</span></h1><p>Pilih mata pelajaran untuk membaca PDF langsung di halaman ini.</p></div><div class="filters"><input id="search" placeholder="Cari mata pelajaran..."><select id="kind"><option value="semua">Semua jenis</option><option>Wajib</option><option>Pilihan</option></select><span id="count">14 materi</span></div><div class="materials" id="materials"></div><div id="noPdfInfo" class="info-note">PDF belum tersedia di server. Tambahkan file PDF ke folder <code>data/pdfs</code> sesuai petunjuk README agar pratinjau bisa tampil tanpa membuka Google Drive.</div></section>
-<section class="page hidden" id="practice"><div class="page-head"><small>LATIHAN MANDIRI</small><h1>Simulasi <span>15 soal</span></h1><p>Soal latihan baru yang terinspirasi dari keterampilan umum TKA, bukan salinan persis soal resmi.</p></div><div id="practiceIntro" class="practice-intro"><div class="practice-symbol">✎</div><h2>Siap berlatih?</h2><p>15 pertanyaan pilihan ganda. Kerjakan sesuai ritmemu; kamu dapat meninjau jawaban dan pembahasan setelah selesai.</p><ul><li>Tanpa peringkat atau kompetisi</li><li>Jawaban dan pembahasan tersedia di akhir</li><li>Progres latihan tidak menentukan nilai dirimu</li></ul><button class="primary" id="startPractice">Mulai 15 soal <span>→</span></button></div><div id="quiz" class="quiz hidden"></div><div id="results" class="results hidden"></div></section>
-<section class="page hidden" id="progress"><div class="page-head"><small>CATATAN PRIBADI</small><h1>Perjalanan <span>belajarmu</span></h1><p>Daftar materi yang sudah kamu tandai selesai. Ini hanya alat bantu pribadi, bukan penilaian atau peringkat.</p></div><div class="progress-summary"><div class="big-number" id="doneNum">0</div><div><b>materi sudah dipelajari</b><p id="progressMsg">Mulai dari satu materi yang membuatmu penasaran.</p></div></div><div id="progressList" class="progress-list"></div><button class="text-button" id="resetProgress">Hapus catatan belajar di perangkat ini</button></section>
-</main></div><div class="pdf-overlay hidden" id="pdfOverlay"><div class="pdf-window"><div class="pdf-head"><div><small>PEMBACA PDF</small><h2 id="pdfTitle">Materi TKA</h2></div><button id="closePdf" class="close">×</button></div><div id="pdfMissing" class="pdf-missing hidden"><span>▤</span><h3>PDF belum tersedia</h3><p>File ini masih berupa tautan sumber. Unduh PDF dari Google Drive yang kamu punya izin aksesnya, lalu simpan di folder <code>data/pdfs</code> server dengan nama yang ditentukan README. Setelah itu, dokumen akan tampil di sini tanpa redirect.</p></div><iframe id="pdfFrame" title="Pratinjau PDF" class="hidden"></iframe><div class="pdf-foot"><span>Gunakan dokumen ini untuk belajar dengan tenang.</span><button id="markDone" class="primary">Tandai sudah dipelajari ✓</button></div></div></div><div id="toast" class="toast"></div><script src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Ruang belajar TKA: baca materi PDF, latihan 15 soal, dan catatan belajar pribadi tanpa peringkat.">
+<title>TKAORA | Ruang belajar TKA</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%233a4bd6'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23ffe27a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h12a3 3 0 013 3v13H7a3 3 0 01-3-3zM4 17a3 3 0 013-3h12"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19zM14 7l3 3"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></symbol>
+</svg>
+<a class="skip" href="#main">Lewati ke konten</a>
+
+<div class="shell">
+  <nav class="nav" aria-label="Navigasi utama">
+    <a class="brand" href="#home"><span class="logo" aria-hidden="true"></span>TKAORA</a>
+    <a href="#home" data-nav="home"><svg class="i"><use href="#i-home"/></svg><span>Beranda</span></a>
+    <a href="#library" data-nav="library"><svg class="i"><use href="#i-book"/></svg><span>Materi</span></a>
+    <a href="#practice" data-nav="practice"><svg class="i"><use href="#i-pencil"/></svg><span>Latihan</span></a>
+    <a href="#progress" data-nav="progress"><svg class="i"><use href="#i-list"/></svg><span>Catatan</span></a>
+    <p class="nav-note">Belajar sesuai ritmemu. Tidak ada peringkat dan tidak ada poin.</p>
+  </nav>
+
+  <main id="main">
+    <section class="page" id="home" aria-labelledby="h-home">
+      <div class="hero">
+        <div class="hero-copy">
+          <h1 id="h-home" tabindex="-1">Belajar tanpa perlu bersaing.</h1>
+          <p>Baca materi TKA, kerjakan 15 soal latihan, dan catat yang sudah kamu pelajari. Semuanya tersimpan di perangkatmu.</p>
+          <div class="row">
+            <a class="btn primary" href="#library">Buka materi</a>
+            <a class="btn" href="#practice">Mulai latihan</a>
+          </div>
+        </div>
+        <div class="sheet" aria-hidden="true">
+          <div class="sheet-row"><b>1</b><i></i><i class="fill"></i><i></i><i></i></div>
+          <div class="sheet-row"><b>2</b><i class="fill late"></i><i></i><i></i><i></i></div>
+          <div class="sheet-row"><b>3</b><i></i><i></i><i></i><i class="fill later"></i></div>
+          <div class="sheet-row"><b>4</b><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <div>
+          <h2>Perjalanan belajarmu</h2>
+          <p id="homeMsg">Mulai dari satu materi yang membuatmu penasaran.</p>
+        </div>
+        <div class="meter" role="img" aria-label="Kemajuan materi"><span id="homeBar"></span></div>
+        <p class="meter-text" id="homeCount">0 dari 14 materi</p>
+      </div>
+
+      <div class="grid3">
+        <a class="tile" href="#library"><b>Materi PDF</b><p>Baca langsung di halaman ini, tanpa dialihkan ke aplikasi lain.</p></a>
+        <a class="tile" href="#practice"><b>Latihan 15 soal</b><p>Jawab sesuai ritmemu. Pembahasan muncul setelah selesai.</p></a>
+        <a class="tile" href="#progress"><b>Catatan belajar</b><p>Tandai materi yang sudah selesai agar tahu langkah berikutnya.</p></a>
+      </div>
+    </section>
+
+    <section class="page" id="library" aria-labelledby="h-library" hidden>
+      <header class="head"><h1 id="h-library" tabindex="-1">Materi TKA</h1><p>Pilih mata pelajaran untuk membaca PDF-nya di sini.</p></header>
+      <div class="filters">
+        <label class="search"><span class="sr">Cari mata pelajaran</span><input id="search" type="search" placeholder="Cari mata pelajaran" autocomplete="off"></label>
+        <div class="chips" role="group" aria-label="Jenis mata pelajaran">
+          <button class="chip on" data-kind="semua" aria-pressed="true">Semua</button>
+          <button class="chip" data-kind="Wajib" aria-pressed="false">Wajib</button>
+          <button class="chip" data-kind="Pilihan" aria-pressed="false">Pilihan</button>
+        </div>
+        <span class="count" id="count" aria-live="polite"></span>
+      </div>
+      <div class="cards" id="materials"><p class="muted">Memuat materi...</p></div>
+      <p class="note" id="noPdf" hidden>Sebagian PDF belum diunggah. Letakkan file bernama <code>tka-01.pdf</code> sampai <code>tka-14.pdf</code> di folder <code>public/pdfs</code>, lalu ubah <code>hasPdf</code> menjadi <code>true</code> di <code>materials.json</code>.</p>
+    </section>
+
+    <section class="page" id="practice" aria-labelledby="h-practice" hidden>
+      <header class="head"><h1 id="h-practice" tabindex="-1">Latihan 15 soal</h1><p>Soal latihan orisinal yang terinspirasi dari keterampilan umum TKA, bukan salinan soal resmi.</p></header>
+      <div id="intro" class="intro">
+        <h2>Siap berlatih?</h2>
+        <p>Kamu bisa pindah antarsoal kapan saja dan mengubah jawaban sebelum selesai. Jawabanmu tersimpan selama tab ini terbuka.</p>
+        <button class="btn primary" id="start">Mulai latihan</button>
+      </div>
+      <div id="quiz" hidden></div>
+      <div id="results" hidden></div>
+    </section>
+
+    <section class="page" id="progress" aria-labelledby="h-progress" hidden>
+      <header class="head"><h1 id="h-progress" tabindex="-1">Catatan belajar</h1><p>Daftar materi yang sudah kamu tandai. Ini alat bantu pribadi, bukan penilaian.</p></header>
+      <div class="summary">
+        <div><h2 id="doneNum">0 materi dipelajari</h2><p id="doneMsg">Mulai dari satu materi yang membuatmu penasaran.</p></div>
+        <div class="meter" role="img" aria-label="Kemajuan materi"><span id="doneBar"></span></div>
+      </div>
+      <ul class="plist" id="plist"></ul>
+      <button class="link-btn" id="reset">Hapus catatan di perangkat ini</button>
+    </section>
+  </main>
+</div>
+
+<dialog id="pdf" class="pdf" aria-labelledby="pdfTitle">
+  <div class="pdf-head"><h2 id="pdfTitle">Materi</h2><button class="btn" id="pdfClose">Tutup</button></div>
+  <div class="pdf-body">
+    <iframe id="pdfFrame" title="Pratinjau PDF" hidden></iframe>
+    <div id="pdfMissing" class="pdf-missing" hidden>
+      <h3>PDF belum diunggah</h3>
+      <p>Materi ini belum tersimpan di website. Kamu masih bisa membuka sumbernya di tab baru.</p>
+      <a class="btn" id="pdfSource" target="_blank" rel="noopener noreferrer">Buka sumber materi</a>
+    </div>
+  </div>
+  <div class="pdf-foot"><button class="btn primary" id="pdfDone" aria-pressed="false">Tandai sudah dipelajari</button></div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "tkaora",
+  "version": "2.1.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "vercel": "^41.6.2"
+  }
+}

@@ -1,0 +1,16 @@
+const express=require('express');
+const fs=require('fs');
+const path=require('path');
+const app=express(),PORT=process.env.PORT||8080;
+const DATA=path.join(__dirname,'data'),PDF_DIR=path.join(DATA,'pdfs'),DB=path.join(DATA,'progress.json');
+fs.mkdirSync(PDF_DIR,{recursive:true});if(!fs.existsSync(DB))fs.writeFileSync(DB,'{}');
+const materials=require('./materials.json');
+app.use(express.json({limit:'64kb'}));
+app.use('/pdfs',express.static(PDF_DIR,{fallthrough:false,immutable:false,setHeaders(res){res.setHeader('X-Content-Type-Options','nosniff')}}));
+app.use(express.static(path.join(__dirname,'public')));
+app.get('/api/health',(_,res)=>res.json({ok:true,app:'TKAORA',version:'2.0.0'}));
+app.get('/api/materials',(req,res)=>{const q=String(req.query.q||'').toLowerCase().trim(),type=String(req.query.type||'semua').toLowerCase();res.json({total:materials.length,materials:materials.filter(m=>(!q||`${m.title} ${m.kind} ${m.description}`.toLowerCase().includes(q))&&(type==='semua'||m.kind.toLowerCase()===type)).map(m=>({...m,hasPdf:fs.existsSync(path.join(PDF_DIR,`${m.id}.pdf`))}))})});
+app.get('/api/progress/:id',(req,res)=>{if(!/^[a-zA-Z0-9_-]{1,64}$/.test(req.params.id))return res.status(400).json({error:'ID tidak valid'});const db=JSON.parse(fs.readFileSync(DB,'utf8')||'{}');res.json(db[req.params.id]||{completed:[],updatedAt:null})});
+app.put('/api/progress/:id',(req,res)=>{if(!/^[a-zA-Z0-9_-]{1,64}$/.test(req.params.id))return res.status(400).json({error:'ID tidak valid'});const completed=req.body?.completed;if(!Array.isArray(completed)||completed.length>100||completed.some(x=>typeof x!=='string'||!materials.some(m=>m.id===x)))return res.status(400).json({error:'Data progres tidak valid'});const db=JSON.parse(fs.readFileSync(DB,'utf8')||'{}');db[req.params.id]={completed:[...new Set(completed)],updatedAt:new Date().toISOString()};fs.writeFileSync(DB,JSON.stringify(db,null,2));res.json({ok:true,...db[req.params.id]})});
+app.get('*',(req,res)=>{if(req.path.startsWith('/api/'))return res.status(404).json({error:'Endpoint tidak ditemukan'});res.sendFile(path.join(__dirname,'public','index.html'))});
+app.listen(PORT,'0.0.0.0',()=>console.log(`TKAORA v2 berjalan di http://0.0.0.0:${PORT}`));
